@@ -112,7 +112,7 @@ textBox.addEventListener('blur', evt => {
     
         storage.set('text', text);
 
-        infoBox.innerText = 'saved in url';
+        infoBox.innerText = storage.afterSetText;
         infoBox.classList.add('visible');
         setTimeout(() => {
             infoBox.classList.remove('visible');

@@ -13,4 +13,6 @@ export default {
         // return localStorage.setItem(key, val);
     },
 
+    afterSetText: 'saved in url',
+
 };
