@@ -1,5 +1,6 @@
 import autosize from 'autosize';
 import storage from './lib/storage';
+import makeCalculation from './lib/calculator';
 import './index.scss';
 
 const getEl = id => document.getElementById(id);
@@ -77,29 +78,10 @@ clearBtn.addEventListener('click', () => {
     textBox.focus();
 });
 
-textBox.addEventListener('input', evt => {
+textBox.addEventListener('input', async evt => {
 
     const text = evt.target.value;
-    const regexp = new RegExp('(\\s|^)(\\-|\\+)\\d+((\\.|,)\\d{1,2})?', 'gmi');
-    const matchesAll = text.matchAll(regexp);
-    const matches = Array.from(matchesAll, data => {
-        return {
-            num: data[0].trim(),
-            pos: data.index + 1,
-        };
-    });
-    
-    const calcs = [];
-    const sum = matches.reduce((prev, currObj, index) => {
-        const curr = parseFloat(currObj.num.replace(',', '.'));
-        calcs[index] = {
-            num: curr,
-            pos: currObj.pos + 1,
-            len: currObj.num.length - 1,
-        };
-        return prev + curr;
-    }, 0);
-
+    const {calcs, sum} = await makeCalculation(text);
     setResult(calcs, sum);
 
 });
