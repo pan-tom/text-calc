@@ -1,5 +1,6 @@
 import autosize from 'autosize';
 import storage from './lib/storage';
+import generateText from './lib/exampleTextGenerator';
 import makeCalculation from './lib/calculator';
 import './index.scss';
 
@@ -28,6 +29,8 @@ const textBox = getEl('text');
 const calcsBox = getEl('calcs');
 const resultBox = getEl('result');
 const infoBox = getEl('info');
+
+let exampleIntervalId = null;
 
 autosize(textBox);
 
@@ -66,12 +69,27 @@ const setResult = (calcs, sum) => {
 };
 
 exampleBtn.addEventListener('click', () => {
-    textBox.value = 'John gives me +100 for a good job\n+100 from Jane\nAdam wants -200 from me\nEve is generous +300\nThis does not count: (-100)';
-    textBox.dispatchEvent(new Event('input'));
+    const textGenerator = generateText();
+    if(exampleIntervalId) {
+        clearInterval(exampleIntervalId);
+    }
+    textBox.value = '';
+    exampleIntervalId = setInterval(() => {
+        const { value, done } = textGenerator.next();
+        if(done) {
+            clearInterval(exampleIntervalId);
+            return;
+        }
+        textBox.value += value;
+        textBox.dispatchEvent(new Event('input'));
+    }, 100);
     textBox.focus();
 });
 
 clearBtn.addEventListener('click', () => {
+    if(exampleIntervalId) {
+        clearInterval(exampleIntervalId);
+    }
     textBox.value = '';
     textBox.dispatchEvent(new Event('input'));
     textBox.dispatchEvent(new Event('blur'));
