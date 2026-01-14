@@ -1,14 +1,12 @@
 // config/webpack.prod.js
-const path = require('path');
+const path = require('path')
 
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
-const safePostCssParser = require('postcss-safe-parser');
-const TerserPlugin = require('terser-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
+const TerserPlugin = require('terser-webpack-plugin')
 
-const ROOT_DIRECTORY = process.cwd();
+const ROOT_DIRECTORY = process.cwd()
 
 module.exports = {
   mode: 'production',
@@ -48,9 +46,11 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              config: {
-                path: path.resolve(ROOT_DIRECTORY, 'config'),
+              postcssOptions: {
+                config: path.resolve(
+                  ROOT_DIRECTORY,
+                  'config/postcss.config.js'
+                ),
               },
             },
           },
@@ -71,17 +71,20 @@ module.exports = {
           {
             loader: 'postcss-loader',
             options: {
-              ident: 'postcss',
-              config: {
-                path: path.resolve(ROOT_DIRECTORY, 'config'),
+              postcssOptions: {
+                config: path.resolve(
+                  ROOT_DIRECTORY,
+                  'config/postcss.config.js'
+                ),
               },
             },
           },
-          'resolve-url-loader',
           {
             loader: 'sass-loader',
             options: {
-              sourceMap: true,
+              sassOptions: {
+                sourceMap: false,
+              },
             },
           },
         ],
@@ -89,7 +92,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(ROOT_DIRECTORY, 'src/public/index.html'),
       filename: 'index.html',
@@ -116,32 +118,14 @@ module.exports = {
           mangle: {
             safari10: true,
           },
-          output: {
+          format: {
             ascii_only: true,
             comments: false,
             ecma: 5,
           },
         },
       }),
-      new OptimizeCSSAssetsPlugin({
-        cssProcessorOptions: {
-          parser: safePostCssParser,
-          map: false,
-        },
-        cssProcessorPluginOptions: {
-          preset: [
-            'default',
-            {
-              discardComments: {
-                removeAll: true,
-              },
-              minifyFontValues: {
-                removeQuotes: false,
-              },
-            },
-          ],
-        },
-      }),
+      new CssMinimizerPlugin(),
     ],
     runtimeChunk: {
       name: entrypoint => `runtime-${entrypoint.name}`,
@@ -150,4 +134,4 @@ module.exports = {
       chunks: 'all',
     },
   },
-};
+}

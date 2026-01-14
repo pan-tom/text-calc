@@ -1,18 +1,20 @@
 export default {
+  get: key => {
+    if (window.location.hash != '') {
+      return decodeURIComponent(window.location.hash).replace('#', '')
+    }
+    return ''
+    // return localStorage.getItem(key);
+  },
 
-    get: key => {
-        if(window.location.hash != '') {
-            return decodeURIComponent(window.location.hash).replace('#', '');
-        }
-        return '';
-        // return localStorage.getItem(key);
-    },
-    
-    set: (key, val) => {
-        return history.pushState({ id: 'main' }, null, '#' + encodeURIComponent(val));
-        // return localStorage.setItem(key, val);
-    },
+  set: (key, val) => {
+    return history.pushState(
+      { id: 'main' },
+      null,
+      '#' + encodeURIComponent(val)
+    )
+    // return localStorage.setItem(key, val);
+  },
 
-    afterSetText: 'saved in url',
-
-};
+  afterSetText: 'saved in url',
+}

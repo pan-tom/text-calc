@@ -1,94 +1,117 @@
+// Colors
+$color-bg: #fff;
+$color-text: #333;
+$color-text-light: #eee;
+$color-accent: #555;
+$color-border: #333;
+
+// Spacing
+$spacing-xs: 3px;
+$spacing-sm: 5px;
+$spacing-md: 10px;
+$spacing-lg: 15px;
+
+// Typography
+$font-size-base: 110%;
+$font-size-lg: 1.2rem;
+$font-size-sm: 0.9rem;
+
+// Other
+$border-width: 1px;
+$container-max-width: 600px;
+
 * {
-	box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-	margin: 0;
-	padding: 15px;
-	background: #fff;
-	font-family: monospace;
-	font-size: 110%;
-	color: #333;
+  margin: 0;
+  padding: $spacing-lg;
+  background: $color-bg;
+  font-family: monospace;
+  font-size: $font-size-base;
+  color: $color-text;
 }
 
 #container {
-	position: relative;
-	max-width: 600px;
-	overflow: hidden;
-	margin: 0 auto;
+  position: relative;
+  max-width: $container-max-width;
+  overflow: hidden;
+  margin: 0 auto;
 }
 
 header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	margin-bottom: 10px;
-	> h1 {
-		margin: 0;
-		font-size: 1.2rem;
-	}
-	button {
-		cursor: pointer;
-		border: none;
-		background: none;
-	}
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: $spacing-md;
+  > h1 {
+    margin: 0;
+    font-size: $font-size-lg;
+  }
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
 }
 
 #text {
-	width: 100%;
-	min-height: 60px;
-	padding: 5px;
-	font-family: monospace;
-	font-size: 0.9rem;
-	resize: none;
-	border: solid 1px #333;
-	outline: none;
-	&:focus {
-		border: solid 1px #333;
-	}
-	&::selection {
-  		background: #555;
-		color: #eee;
-	}
+  width: 100%;
+  min-height: 60px;
+  padding: $spacing-sm;
+  font-family: monospace;
+  font-size: $font-size-sm;
+  resize: none;
+  border: solid $border-width $color-border;
+  outline: none;
+  &:focus {
+    border: solid $border-width $color-border;
+  }
+  &::selection {
+    background: $color-accent;
+    color: $color-text-light;
+  }
 }
 
 #result,
 #info,
 #calcs {
-	display: none;
-	float: left;
-	padding: 3px 6px;
-	background: #555;
-	color: #eee;
+  display: none;
+  float: left;
+  padding: $spacing-xs ($spacing-xs * 2);
+  background: $color-accent;
+  color: $color-text-light;
 }
 
 #calcs {
-	user-select: none;
+  user-select: none;
 }
 
 #calcs > span {
-	display: inline-block;
-	padding: 3px;
-	background: #555;
-	color: #eee;
-	cursor: pointer;
-	&:hover, &:focus {
-  		background: #eee;
-		color: #333;
-	}
+  display: inline-block;
+  padding: $spacing-xs;
+  background: $color-accent;
+  color: $color-text-light;
+  cursor: pointer;
+  &:hover,
+  &:focus {
+    background: $color-text-light;
+    color: $color-text;
+  }
 }
 
 #info {
-	float: right;
+  float: right;
 }
 
 #result {
-	clear: both;
-	font-weight: bold;
+  clear: both;
+  font-weight: bold;
 }
 
 #result.visible,
 #info.visible,
 #calcs.visible {
-	display: block;
+  display: block;
 }
