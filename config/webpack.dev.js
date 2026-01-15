@@ -2,6 +2,7 @@
 const path = require('path')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
 const detectPort = require('detect-port')
 
 /**
@@ -33,7 +34,10 @@ module.exports = async () => {
      * Docs: https://webpack.js.org/configuration/entry-context/
      */
     entry: {
-      main: path.resolve(ROOT_DIRECTORY, 'src/index.js'),
+      main: path.resolve(ROOT_DIRECTORY, 'src/index.ts'),
+    },
+    resolve: {
+      extensions: ['.ts', '.js'],
     },
     /**
      * Tell webpack where it should output
@@ -80,21 +84,22 @@ module.exports = async () => {
          * Docs: https://github.com/babel/babel-loader
          */
         {
+          test: /\.ts$/,
+          exclude: /node_modules/,
+          use: {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true, // Faster builds, type checking done separately
+            },
+          },
+        },
+        {
           test: /\.js$/,
           exclude: /node_modules/,
           use: {
             loader: 'babel-loader',
             options: {
-              // Enabled cache for faster recompilation
               cacheDirectory: true,
-              /**
-               * Here we tell babel where to find babel config file
-               * Note that we can also put our babel config (presets and plugins) here
-               * Since Babel 7, using .babelrc filename not recommended
-               * Here we are using the new recommended filename
-               * using babel.config.js filename
-               * Docs: https://babeljs.io/docs/en/config-files
-               */
               configFile: path.resolve(
                 ROOT_DIRECTORY,
                 'config/babel.config.js'
@@ -173,6 +178,12 @@ module.exports = async () => {
         template: path.resolve(ROOT_DIRECTORY, 'src/public/index.html'),
         filename: 'index.html',
         minify: false,
+      }),
+      new ForkTsCheckerWebpackPlugin({
+        // Runs type checking in a separate process, doesn't slow down webpack builds
+        typescript: {
+          configFile: path.resolve(ROOT_DIRECTORY, 'tsconfig.json'),
+        },
       }),
     ],
   }

@@ -1,6 +1,12 @@
-export const getEl = id => document.getElementById(id)
+export const getEl = (id: string): HTMLElement | null => {
+  return document.getElementById(id)
+}
 
-export const createMarkup = () => {
+const getTextArea = (id: string): HTMLTextAreaElement | null => {
+  return getEl(id) as HTMLTextAreaElement | null
+}
+
+export const createMarkup = (): string => {
   let markup = '<div id="container">'
   markup += '<header>'
   markup += '<h1>Text Calc</h1>'
@@ -17,14 +23,26 @@ export const createMarkup = () => {
   return markup
 }
 
-export const initializeDOM = () => {
+export interface DOMElements {
+  clearBtn: HTMLElement | null
+  exampleBtn: HTMLElement | null
+  textBox: HTMLTextAreaElement | null
+  calcsBox: HTMLElement | null
+  resultBox: HTMLElement | null
+  infoBox: HTMLElement | null
+}
+
+export const initializeDOM = (): DOMElements => {
   const app = getEl('app')
+  if (!app) {
+    throw new Error('App element not found')
+  }
   app.innerHTML = createMarkup()
 
   return {
     clearBtn: getEl('clear'),
     exampleBtn: getEl('example'),
-    textBox: getEl('text'),
+    textBox: getTextArea('text'),
     calcsBox: getEl('calcs'),
     resultBox: getEl('result'),
     infoBox: getEl('info'),

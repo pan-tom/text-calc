@@ -1,4 +1,4 @@
-function* generateText() {
+export function* generateText(): Generator<string, void, unknown> {
   const letters =
     'John gives me +100 for a good job\n+100 from Jane\nAdam wants -200 from me\nEve is generous +300\nThis does not count: (-100)'.split(
       ''
@@ -8,5 +8,3 @@ function* generateText() {
     yield letters[index++]
   }
 }
-
-export default generateText

@@ -1,8 +1,10 @@
-export const setupAutoResize = textarea => {
-  const autoResize = () => {
+export const setupAutoResize = (
+  textarea: HTMLTextAreaElement
+): (() => void) => {
+  const autoResize = (): void => {
     // Calculate available space (viewport height minus header, margins, padding, etc.)
     const viewportHeight = window.innerHeight
-    const header = document.querySelector('header')
+    const header = document.querySelector('header') as HTMLElement | null
     const body = document.body
     const bodyPadding =
       parseInt(getComputedStyle(body).paddingTop) +
@@ -14,9 +16,9 @@ export const setupAutoResize = textarea => {
 
     const maxHeight =
       viewportHeight - headerHeight - bodyPadding - otherElementsSpace
-
     textarea.style.maxHeight = maxHeight + 'px'
     textarea.style.height = 'auto'
+
     const desiredHeight = textarea.scrollHeight
     textarea.style.height = Math.min(desiredHeight, maxHeight) + 'px'
     textarea.style.overflow = desiredHeight > maxHeight ? 'auto' : 'hidden'
