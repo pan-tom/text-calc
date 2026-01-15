@@ -11,7 +11,10 @@ const ROOT_DIRECTORY = process.cwd()
 module.exports = {
   mode: 'production',
   entry: {
-    main: path.resolve(ROOT_DIRECTORY, 'src/index.js'),
+    main: path.resolve(ROOT_DIRECTORY, 'src/index.ts'),
+  },
+  resolve: {
+    extensions: ['.ts', '.js'],
   },
   output: {
     path: path.resolve(ROOT_DIRECTORY, 'build'),
@@ -20,6 +23,19 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'ts-loader',
+          options: {
+            transpileOnly: false, // Full type checking in production
+            compilerOptions: {
+              noEmit: false, // Override tsconfig noEmit for webpack builds
+            },
+          },
+        },
+      },
       {
         test: /\.js$/,
         exclude: /node_modules/,

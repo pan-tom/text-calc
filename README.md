@@ -1,6 +1,6 @@
 # Text Calc
 
-Simple text parser and calculator written in pure JavaScript ES6.
+Simple text parser and calculator written in TypeScript.
 
 Parses text for numbers with `+` or `-` signs and calculates their sum in real-time.
 
@@ -18,9 +18,9 @@ Demo: https://text-calc.netlify.app/
 
 ## Tech Stack
 
-- **JavaScript ES6+** - Vanilla JS with ES6 modules
+- **TypeScript** - Type-safe JavaScript
 - **Webpack 5** - Module bundler
-- **Babel 7** - JavaScript compiler
+- **ts-loader** - TypeScript loader for Webpack
 - **Sass** - CSS preprocessor
 - **PostCSS** - CSS processing
 - **Prettier** - Code formatter
@@ -55,24 +55,25 @@ The dev server will automatically find an available port (starting from 3000) an
 
 ## Available Scripts
 
-- `npm start` - Start development server with hot reload
+- `npm start` - Start development server with hot reload and type checking
 - `npm run build` - Build for production
 - `npm run format` - Format code with Prettier
+- `npm run type-check` - Run TypeScript type checking
 
 ## Project Structure
 
 ```
 src/
-├── index.js          # Main entry point
+├── index.ts          # Main entry point
 ├── index.scss        # Styles
 ├── lib/
-│   ├── calculator.js        # Calculation logic
-│   ├── dom.js               # DOM setup
-│   ├── eventHandlers.js     # Event handlers
-│   ├── exampleTextGenerator.js
-│   ├── resultDisplay.js     # Result display logic
-│   ├── storage.js           # URL-based storage
-│   └── textareaResize.js    # Auto-resize functionality
+│   ├── calculator.ts        # Calculation logic
+│   ├── dom.ts               # DOM setup
+│   ├── eventHandlers.ts     # Event handlers
+│   ├── exampleTextGenerator.ts  # Example text generator for demo
+│   ├── resultDisplay.ts     # Result display logic
+│   ├── storage.ts           # URL-based storage
+│   └── textareaResize.ts    # Auto-resize functionality
 └── public/
     └── index.html
 ```
