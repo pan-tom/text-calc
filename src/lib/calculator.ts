@@ -23,7 +23,7 @@ export const makeCalculation = (text: string): CalculationResult => {
   const matches: MatchData[] = Array.from(matchesAll, data => {
     return {
       num: data[0].trim(),
-      pos: (data.index ?? 0) + 1,
+      pos: data.index + 1,
     }
   })
 

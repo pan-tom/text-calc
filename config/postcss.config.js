@@ -1,11 +1,14 @@
 // config/postcss.config.js
-module.exports = {
+import postcssFlexbugsFixes from 'postcss-flexbugs-fixes'
+import postcssPresetEnv from 'postcss-preset-env'
+
+export default {
   plugins: [
     /**
      * Docs: https://github.com/csstools/postcss-preset-env
      */
-    require('postcss-flexbugs-fixes'),
-    require('postcss-preset-env')({
+    postcssFlexbugsFixes,
+    postcssPresetEnv({
       // Enabled Stage 2 features and add polyfill if necessary
       stage: 2,
       /**
