@@ -1,9 +1,8 @@
 // config/webpack.dev.js
-const path = require('path')
-
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin')
-const detectPort = require('detect-port')
+import path from 'path'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+import detectPort from 'detect-port'
 
 /**
  * process.cwd will return a path to our active project directory
@@ -17,7 +16,7 @@ const ROOT_DIRECTORY = process.cwd()
 // Dynamic port configuration
 const DEFAULT_PORT = 3000
 
-module.exports = async () => {
+export default async () => {
   const port = await detectPort(DEFAULT_PORT)
 
   return {

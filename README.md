@@ -21,6 +21,7 @@ Demo: https://text-calc.netlify.app/
 - **TypeScript** - Type-safe JavaScript
 - **Webpack 5** - Module bundler
 - **ts-loader** - TypeScript loader for Webpack
+- **Vitest** - Fast unit testing framework
 - **Sass** - CSS preprocessor
 - **PostCSS** - CSS processing
 - **Prettier** - Code formatter
@@ -59,6 +60,9 @@ The dev server will automatically find an available port (starting from 3000) an
 - `npm run build` - Build for production
 - `npm run format` - Format code with Prettier
 - `npm run type-check` - Run TypeScript type checking
+- `npm test` - Run tests in watch mode
+- `npm run test:run` - Run tests once
+- `npm run test:coverage` - Run tests with coverage report
 
 ## Project Structure
 
@@ -67,6 +71,10 @@ src/
 ├── index.ts          # Main entry point
 ├── index.scss        # Styles
 ├── lib/
+│   ├── __tests__/          # Unit tests
+│   │   ├── calculator.test.ts
+│   │   ├── exampleTextGenerator.test.ts
+│   │   └── storage.test.ts
 │   ├── calculator.ts        # Calculation logic
 │   ├── dom.ts               # DOM setup
 │   ├── eventHandlers.ts     # Event handlers
